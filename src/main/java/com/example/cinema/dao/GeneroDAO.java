@@ -19,7 +19,7 @@ public class GeneroDAO {
         this.connection = new ConnectionFactory().getConnection();
     }
 
-    public List<Genero> listaFilmes() {
+    public List<Genero> listaGeneros() {
         String sql = "select * from genero";
 
         try {
@@ -27,22 +27,19 @@ public class GeneroDAO {
 
             ResultSet rs = stmt.executeQuery();
 
-            List<Filme> filmes = new ArrayList<>();
-            Filme filme;
+            List<Genero> generos = new ArrayList<>();
+            Genero genero;
             while (rs.next()) {
 
-                filme = new Filme();
-                filme.setId(rs.getInt("id"));
-                filme.setTitulo(rs.getString("titulo"));
-                filme.setDuracao(rs.getString("duracao"));
-                filme.setSinopse(rs.getString("sinopse"));
-                filme.setGeneroId(rs.getInt("generoId"));
+                genero = new Genero();
+                genero.setIdGenero(rs.getInt("idGenero"));
+                genero.setDescricao(rs.getString("descricao"));
                 System.out.println("====================================");
 
-                filmes.add(filme);
+                generos.add(genero);
 
             }
-            return filmes;
+            return generos;
         }
         catch (SQLException e) {
             throw new RuntimeException(e);

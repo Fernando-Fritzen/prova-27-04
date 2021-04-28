@@ -52,5 +52,56 @@ public class FilmeDAO {
         }
     }
 
+    public void cadastraFilme(Filme filme) {
+        String sql = "insert into filme" +
+                " (titulo, duracao, sinopse, GeneroId) " +
+                "values (?,?,?,?)";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+
+            stmt.setString(1, filme.getTitulo());
+            stmt.setString(2, filme.getDuracao());
+            stmt.setString(3, filme.getSinopse());
+            stmt.setInt(4, filme.getGeneroId());
+
+            stmt.execute();
+            stmt.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void alteraFilme(Filme filme) {
+
+        String sql = "update filme set titulo=?, duracao=?, sinopse=?," +
+                "GeneroId=? where id=?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            stmt.setString(1, filme.getTitulo());
+            stmt.setString(2, filme.getDuracao());
+            stmt.setString(3, filme.getSinopse());
+            stmt.setInt(4, filme.getId());
+
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deletarFilme(Filme filme) {
+        try {
+            PreparedStatement stmt = connection.prepareStatement("delete from filme where id=?");
+            stmt.setInt(1, filme.getId());
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
