@@ -46,4 +46,24 @@ public class GeneroDAO {
         }
     }
 
+    public void cadastraGenero(Genero genero) {
+        String sql = "insert into genero" +
+                " (descricao) " +
+                "values (?)";
+
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+
+            stmt.setString(1, genero.getDescricao());
+
+
+            stmt.execute();
+            stmt.close();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

@@ -6,9 +6,7 @@ import com.example.cinema.persistence.model.Filme;
 import com.example.cinema.persistence.model.Genero;
 import com.google.gson.Gson;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
@@ -22,5 +20,14 @@ public class GeneroPath {
         List<Genero> generos = generoDao.listaGeneros();
 
         return Response.ok(new Gson().toJson(generos)).build();
+    }
+
+    @POST
+    @Consumes("application/json")
+    @Produces("application/json")
+    public Response criaGenero(Genero genero) {
+        GeneroDAO generoDAO = new GeneroDAO();
+        generoDAO.cadastraGenero(genero);
+        return Response.ok(new Gson().toJson(genero)).build();
     }
 }

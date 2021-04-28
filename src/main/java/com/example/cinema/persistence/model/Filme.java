@@ -1,6 +1,5 @@
 package com.example.cinema.persistence.model;
 
-import java.sql.Time;
 
 public class Filme {
 
