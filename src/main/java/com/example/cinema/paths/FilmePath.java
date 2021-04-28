@@ -18,7 +18,7 @@ public class FilmePath {
     @Produces("application/json")
     public Response listaFilmes(){
         FilmeDAO filmeDao = new FilmeDAO();
-        List<Filme> filmes = filmeDao.listaFilmes();
+        List<Filme> filmes = filmeDao.listarFilme();
 
         return Response.ok(new Gson().toJson(filmes)).build();
    }
@@ -31,4 +31,6 @@ public class FilmePath {
         filmeDAO.cadastraFilme(filme);
         return Response.ok(new Gson().toJson(filme)).build();
     }
+
+
 }

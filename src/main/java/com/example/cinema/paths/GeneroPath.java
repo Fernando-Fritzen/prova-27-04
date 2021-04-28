@@ -23,6 +23,7 @@ public class GeneroPath {
     }
 
     @POST
+    @Path("cadastra")
     @Consumes("application/json")
     @Produces("application/json")
     public Response criaGenero(Genero genero) {

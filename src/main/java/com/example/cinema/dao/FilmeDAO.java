@@ -9,7 +9,9 @@ import java.sql.ResultSet;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FilmeDAO {
 
@@ -20,35 +22,56 @@ public class FilmeDAO {
         this.connection = new ConnectionFactory().getConnection();
     }
 
-    public List<Filme> listaFilmes() {
-        String sql = "select * from filme";
 
+
+    public List<Filme> listarFilme() {
+
+        String sql = "select filme.*, genero.descricao as genero " +
+                "from filme inner join genero " +
+                "on filme.GeneroId = genero.idGenero " +
+                "order by genero";
+
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
         try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt = connection.prepareStatement(sql);
 
-            ResultSet rs = stmt.executeQuery();
+            rs = stmt.executeQuery();
 
-            List<Filme> filmes = new ArrayList<>();
-            Filme filme;
+            List<Filme> list = new ArrayList<>();
+            Map<Integer, Genero> map = new HashMap<>();
+
             while (rs.next()) {
 
-                filme = new Filme();
+                Genero genero = map.get(rs.getInt("GeneroId"));
+
+                if(genero == null) {
+                    genero = new Genero();
+                    genero.setIdGenero(rs.getInt("GeneroId"));
+                    genero.setDescricao(rs.getString("genero"));
+                    map.put(rs.getInt("GeneroId"), genero);
+                }
+
+
+                Filme filme = new Filme();
                 filme.setId(rs.getInt("id"));
                 filme.setTitulo(rs.getString("titulo"));
                 filme.setDuracao(rs.getString("duracao"));
                 filme.setSinopse(rs.getString("sinopse"));
-                filme.setGeneroId(rs.getInt("generoId"));
-                System.out.println("====================================");
-
-                filmes.add(filme);
-
+                filme.setGeneroId(rs.getInt("GeneroId"));
+                filme.setGenero(genero);
+                list.add(filme);
             }
-            return filmes;
-        }
-        catch (SQLException e) {
+            return list;
+
+
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
+
+
 
     public void cadastraFilme(Filme filme) {
         String sql = "insert into filme" +
@@ -82,7 +105,8 @@ public class FilmeDAO {
             stmt.setString(1, filme.getTitulo());
             stmt.setString(2, filme.getDuracao());
             stmt.setString(3, filme.getSinopse());
-            stmt.setInt(4, filme.getId());
+            stmt.setInt(4, filme.getGeneroId());
+            stmt.setInt(5, filme.getId());
 
             stmt.execute();
             stmt.close();

@@ -34,7 +34,6 @@ public class GeneroDAO {
                 genero = new Genero();
                 genero.setIdGenero(rs.getInt("idGenero"));
                 genero.setDescricao(rs.getString("descricao"));
-                System.out.println("====================================");
 
                 generos.add(genero);
 
