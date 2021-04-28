@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archive>
+  <dir sourceOnDisk="C:\Users\ferna\IdeaProjects\cinema\target\classes" targetInArchive="/WEB-INF/classes" />
+  <file sourceOnDisk="C:\Users\ferna\.m2\repository\com\google\code\gson\gson\2.8.6\gson-2.8.6.jar" targetInArchive="/WEB-INF/lib/gson-2.8.6.jar" />
+  <file sourceOnDisk="C:\workspace\java-libs\jdbc-connectors\mysql-connector-java-8.0.23.jar" targetInArchive="/WEB-INF/lib/mysql-connector-java-8.0.23.jar" />
+</archive>
+
