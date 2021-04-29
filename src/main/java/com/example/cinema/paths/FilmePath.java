@@ -24,6 +24,7 @@ public class FilmePath {
    }
 
     @POST
+    @Path("cadastra")
     @Consumes("application/json")
     @Produces("application/json")
     public Response criaFilme(Filme filme) {

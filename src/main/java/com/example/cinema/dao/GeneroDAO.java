@@ -65,4 +65,31 @@ public class GeneroDAO {
         }
     }
 
+    public void alteraGenero(Genero genero) {
+
+        String sql = "update genero set descricao=? where id=?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+
+            stmt.setString(1, genero.getDescricao());
+            stmt.setInt(2, genero.getIdGenero());
+
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void deletarGenero(Genero genero) {
+        try {
+            PreparedStatement stmt = connection.prepareStatement("delete from genero where id=?");
+            stmt.setInt(1, genero.getIdGenero());
+            stmt.execute();
+            stmt.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
